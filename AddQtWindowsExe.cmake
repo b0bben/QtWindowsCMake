@@ -211,7 +211,7 @@ function(add_qt_windows_exe TARGET)
         ${QT_WINDOWS_APP_NO_ANGLE}
         ${QT_WINDOWS_APP_NO_OPENGL_SW}
         --$<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>
-        $<TARGET_FILE_DIR:${TARGET}>
+        $<TARGET_FILE:${TARGET}>
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_CONF} $<TARGET_FILE_DIR:${TARGET}>/qt.conf
         COMMENT "call ${QT_WINDOWS_QT_ROOT}/bin/windeployqt in folder $<TARGET_FILE_DIR:${TARGET}>"
       )
