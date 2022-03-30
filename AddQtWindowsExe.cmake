@@ -56,6 +56,7 @@ function(add_qt_windows_exe TARGET)
     NO_WEBENGINE
     NO_ANGLE
     NO_OPENGL_SW
+    NO_COMPILER_RUNTIME
     VERBOSE_INSTALLER
     )
   set(QT_WINDOWS_ONE_VALUE_ARG NAME
@@ -106,6 +107,7 @@ function(add_qt_windows_exe TARGET)
     message(STATUS "NO_PLUGINS            : ${ARGWIN_NO_PLUGINS}")
     message(STATUS "NO_ANGLE              : ${ARGWIN_NO_ANGLE}")
     message(STATUS "NO_OPENGL_SW          : ${ARGWIN_NO_OPENGL_SW}")
+    message(STATUS "NO_COMPILER_RUNTIME   : ${ARGWIN_NO_COMPILER_RUNTIME}")
     message(STATUS "---- End QtWindowsCMake Configuration ----")
     endif() # ARGWIN_VERBOSE_LEVEL_DEPLOY
 
@@ -181,6 +183,10 @@ function(add_qt_windows_exe TARGET)
         set(QT_WINDOWS_APP_NO_OPENGL_SW --no-opengl-sw)
       endif()
 
+      if(ARGWIN_NO_COMPILER_RUNTIME)
+        set(QT_WINDOWS_APP_NO_COMPILER_RUNTIME --no-compiler-runtime)
+      endif()
+
       if(ARGWIN_ALL)
         set(QT_WINDOWS_ALL ALL)
       endif()
@@ -210,6 +216,7 @@ function(add_qt_windows_exe TARGET)
         ${QT_WINDOWS_APP_NO_WEBENGINE}
         ${QT_WINDOWS_APP_NO_ANGLE}
         ${QT_WINDOWS_APP_NO_OPENGL_SW}
+        ${QT_WINDOWS_APP_NO_COMPILER_RUNTIME}
         --$<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>
         $<TARGET_FILE:${TARGET}>
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_CONF} $<TARGET_FILE_DIR:${TARGET}>/qt.conf
