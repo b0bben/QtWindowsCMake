@@ -1,6 +1,6 @@
 # find the Qt root directory
-if(NOT Qt5Core_DIR)
-  find_package(Qt5Core REQUIRED)
+if(NOT Qt${QT_VERSION_MAJOR}Core_DIR)
+  find_package(Qt${QT_VERSION_MAJOR}Core REQUIRED)
 endif()
 get_filename_component(QT_WINDOWS_QT_ROOT "${Qt5Core_DIR}/../../.." ABSOLUTE)
 message(STATUS "Found Qt for Windows: ${QT_WINDOWS_QT_ROOT}")
@@ -13,14 +13,14 @@ set(QBC_TAG "master" CACHE STRING "Git Tag of Qbc")
 
 include(FetchContent)
 
-## Qbc
-#FetchContent_Declare(
-#  Qbc
-#  GIT_REPOSITORY ${QBC_REPOSITORY}
-#  GIT_TAG        ${QBC_TAG}
-#  GIT_SHALLOW    1
-#)
-#FetchContent_MakeAvailable(Qbc)
+# Qbc
+FetchContent_Declare(
+  Qbc
+  GIT_REPOSITORY ${QBC_REPOSITORY}
+  GIT_TAG        ${QBC_TAG}
+  GIT_SHALLOW    1
+)
+FetchContent_MakeAvailable(Qbc)
 
 include(CMakeParseArguments)
 
