@@ -202,20 +202,12 @@ function(add_qt_windows_exe TARGET)
         set(${ARGWIN_OUTPUT_TARGET} ${QT_WINDOWS_APP_DEPLOY_NAME} PARENT_SCOPE)
       endif()
 
-      # Generate qt.conf
-      set(QT_WINDOWS_QT_CONF ${CMAKE_CURRENT_BINARY_DIR}/qt.conf)
-      file(WRITE ${QT_WINDOWS_QT_CONF}
-        "[Paths]\n"
-        "Plugins = .\n"
-        "Imports = .\n"
-        "Qml2Imports = .\n"
-      )
 
       # Create Custom Target
       add_custom_target(${QT_WINDOWS_APP_DEPLOY_NAME}
         ${QT_WINDOWS_ALL}
         DEPENDS ${TARGET} ${ARGWIN_DEPENDS}
-        COMMAND ${QT_WINDOWS_QT_ROOT}/bin/windeployqt
+        COMMAND ${QT_WINDOWS_QT_ROOT}/bin/windeployqt6
         ${QT_WINDOWS_APP_QML_DIR}
         ${QT_WINDOWS_APP_NO_TRANSLATIONS}
         ${QT_WINDOWS_APP_NO_PLUGINS}
@@ -226,7 +218,7 @@ function(add_qt_windows_exe TARGET)
         ${QT_WINDOWS_APP_NO_COMPILER_RUNTIME}
         --$<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>
         $<TARGET_FILE:${TARGET}>
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_CONF} $<TARGET_FILE_DIR:${TARGET}>/qt.conf
+
         COMMENT "call ${QT_WINDOWS_QT_ROOT}/bin/windeployqt in folder $<TARGET_FILE_DIR:${TARGET}>"
       )
 
